@@ -2,17 +2,21 @@ package com.assmt.dao;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.assmt.entity.AssmtTransactionHistoryEntity;
 
-public interface AssmtTransactionHistoryInterface extends JpaRepository<AssmtTransactionHistoryEntity, String>, AssmtTransactionHistoryImplInterface{
+@Repository
+public interface AssmtTransactionHistoryInterface {
+	
+	void saveRecord(AssmtTransactionHistoryEntity entity);
+	
+	List<AssmtTransactionHistoryEntity> retrieveListByCriteriaWithPagination(AssmtTransactionHistoryEntity entity,
+			List<String> acctNo, int page, int size);
 
-	List<AssmtTransactionHistoryEntity> findListByCriteriaWithPagination(AssmtTransactionHistoryEntity entity,
-			Object object, Integer startIndex, Integer maxPerPage);
+	void descriptionUpdateByIds(String descpt, List<String> ids);
 
-	List<AssmtTransactionHistoryEntity> findListByCriteriaWithoutPagination(AssmtTransactionHistoryEntity entity);
-
-	void updateDescriptionById(Object object, List<String> ids);
-
+	List<AssmtTransactionHistoryEntity> retrieveListByCriteriaWithoutPagination(AssmtTransactionHistoryEntity entity);
+	
+	Integer selectCount(AssmtTransactionHistoryEntity entity, List<String>acctNo);
 }
